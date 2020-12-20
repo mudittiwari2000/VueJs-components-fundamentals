@@ -1,5 +1,31 @@
-Vue.component('plan-picker', {
+const PlanPickerItemComponent = {
+  template: '#plan-picker-item-template',
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    selectedPlan: {
+      type: String
+    }
+  },
+  computed: {
+    isSelected() {
+      return this.name === this.selectedPlan;
+    }
+  },
+  methods: {
+    select: function () {
+      this.$emit('select', this.name);
+    }
+  }
+};
+
+const PlanPickerComponent = {
   template: '#plan-picker-template',
+  components: {
+    PlanPickerItem: PlanPickerItemComponent
+  },
   data() {
     return {
       plans: [
@@ -9,27 +35,26 @@ Vue.component('plan-picker', {
         },
         {
           id: 2,
-          name: 'The Sintra'
+          name: 'The Sinatra'
         },
         {
           id: 3,
           name: 'The Corinthium'
         }
-      ]
+      ],
+      selectedPlan: null
     };
-  }
-});
-
-Vue.component('plan', {
-  template: '#plan-template',
-  props: {
-    name: {
-      type: String,
-      required: true
+  },
+  methods: {
+    selectPlan(plan) {
+      this.selectedPlan = plan;
     }
   }
-});
+};
 
 new Vue({
-  el: '#app'
+  el: '#app',
+  components: {
+    PlanPicker: PlanPickerComponent
+  }
 });
