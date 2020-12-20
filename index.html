@@ -16,11 +16,16 @@
       <h2 class="subtitle">
         We travel the world to source the very best single origin coffee for you
       </h2>
-      <div class="plans">
-        <plan v-for="plan in plans" class="plan" :key="plan.id" :name="plan.name"></plan>
-      </div>
+
+      <plan-picker></plan-picker>
     </div>
   </div>
+
+  <script type="text/x-template" id="plan-picker-template">
+    <div class="plans">
+      <plan v-for="plan in plans" class="plan" :key="plan.id" :name="plan.name"></plan>
+    </div>
+  </script>
 
   <script type="text/x-template" id="plan-template">
     <div class="plan" >
